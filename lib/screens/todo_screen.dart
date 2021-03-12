@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/components/tasks_list.dart';
 
+import 'add_task_bottom_screen.dart';
+
 class TodoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -9,10 +11,20 @@ class TodoScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.blueAccent,
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Colors.blue[900],
           child: Icon(Icons.add),
           onPressed: () {
-            print('float');
+            print('add float');
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => SingleChildScrollView(
+                child:Container(
+                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.top),
+                  child: AddTaskBottomScreen(),
+                ),
+              ),
+            );
           },
         ),
         body: Column(
@@ -26,13 +38,10 @@ class TodoScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.list,
-                        size: 30,
-                      ),
-                      radius: 25.0,
+                    Icon(
+                      Icons.list,
+                      size: 30,
+                      color: Colors.white,
                     ),
                     SizedBox(
                       height: 10.0,
