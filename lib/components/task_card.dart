@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class TaskCard extends StatelessWidget {
-  TaskCard({this.isChecked , this.taskText, this.taskTag, this.checkCallBack});
+  TaskCard({this.isChecked , this.taskText, this.taskTag, this.checkCallBack, this.removeCallBack});
 
   final bool isChecked;
   final String taskText;
   final String taskTag;
   final Function checkCallBack;
+  final Function removeCallBack;
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +15,7 @@ class TaskCard extends StatelessWidget {
       padding: EdgeInsets.only(top: 20, left: 20, right: 20),
       child: GestureDetector(
         onTap: checkCallBack,
+        onLongPress: removeCallBack,
         child: Container(
           decoration: BoxDecoration(
             color: Colors.indigo[900],
@@ -42,15 +44,3 @@ class TaskCard extends StatelessWidget {
     );
   }
 }
-//
-// class TaskCheckbox extends StatelessWidget {
-//   TaskCheckbox({this.checkboxState, this.checkboxCallback});
-//
-//   final Function checkboxCallback;
-//   final bool checkboxState;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return
-//   }
-// }

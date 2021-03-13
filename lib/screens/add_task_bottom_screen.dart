@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_list_app/models/task.dart';
+import 'package:todo_list_app/models/task_data.dart';
 
 class AddTaskBottomScreen extends StatelessWidget {
   String newText;
@@ -6,9 +9,6 @@ class AddTaskBottomScreen extends StatelessWidget {
 
   final textController = TextEditingController();
   final tagController = TextEditingController();
-  final Function addTaskCallBack;
-
-  AddTaskBottomScreen(this.addTaskCallBack);
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +77,10 @@ class AddTaskBottomScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                textController.clear();
-                tagController.clear();
-                addTaskCallBack(newText, newTag);
+                // textController.clear();
+                // tagController.clear();
+                Provider.of<TaskData>(context,listen:false).addTask(newText, newTag);
+                Navigator.pop(context);
               },
             ),
             SizedBox(

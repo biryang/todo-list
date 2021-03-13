@@ -1,23 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_list_app/components/tag_card.dart';
 import 'package:todo_list_app/components/tasks_list.dart';
 import 'package:todo_list_app/models/task.dart';
+import 'package:todo_list_app/models/task_data.dart';
 
 import 'add_task_bottom_screen.dart';
 
-class TodoScreen extends StatefulWidget {
-  @override
-  _TodoScreenState createState() => _TodoScreenState();
-}
-
-class _TodoScreenState extends State<TodoScreen> {
-  List<Task> tasks = [
-    Task(text: 'test1', tag: 'work'),
-    Task(text: 'test1', tag: 'work'),
-    Task(text: 'test1', tag: 'work'),
-    Task(text: 'test1', tag: 'work'),
-  ];
-
+class TodoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,14 +26,7 @@ class _TodoScreenState extends State<TodoScreen> {
                 child: Container(
                   padding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).viewInsets.top),
-                  child: AddTaskBottomScreen((newText, newTag) {
-                    setState(() {
-                      print(newText);
-                      print(newTag);
-                      tasks.add(Task(text: newText, tag: newTag));
-                    });
-                    Navigator.pop(context);
-                  }),
+                  child: AddTaskBottomScreen(),
                 ),
               ),
             );
@@ -55,7 +39,7 @@ class _TodoScreenState extends State<TodoScreen> {
               alignment: Alignment.centerLeft,
               child: Padding(
                 padding: EdgeInsets.only(
-                    top: 60.0, left: 30.0, right: 30.0, bottom: 30.0),
+                    top: 30.0, left: 30.0, right: 30.0, bottom: 30.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -75,13 +59,21 @@ class _TodoScreenState extends State<TodoScreen> {
                       ),
                     ),
                     Text(
-                      'Tasks',
+                      '${Provider.of<TaskData>(context).taskCount} Tasks',
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ],
                 ),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Text(
+                'TAGS',
+                style: TextStyle(color: Colors.white70, fontSize: 12),
+              ),
+            ),
+            TagCard(tag: 'tag'),
             Padding(
               padding: EdgeInsets.all(10),
               child: Text(
@@ -94,13 +86,11 @@ class _TodoScreenState extends State<TodoScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white10,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                      ),
                 ),
-                child: TasksList(
-                  tasks: tasks,
-                ),
+                child: TasksList(),
               ),
             ),
           ],
