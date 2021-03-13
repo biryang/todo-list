@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/screens/todo_screen.dart';
 
+import 'models/task.dart';
+
 void main() {
   runApp(MyApp());
 }

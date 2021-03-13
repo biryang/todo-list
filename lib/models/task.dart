@@ -3,7 +3,7 @@ class Task {
   final String tag;
   bool isDone;
 
-  Task({this.text, this.tag, this.isDone});
+  Task({this.text, this.tag, this.isDone = false});
 
   void toggleDone() {
     isDone = !isDone;

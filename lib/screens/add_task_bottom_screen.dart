@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
 class AddTaskBottomScreen extends StatelessWidget {
+  String newText;
+  String newTag;
+
+  final textController = TextEditingController();
+  final tagController = TextEditingController();
+  final Function addTaskCallBack;
+
+  AddTaskBottomScreen(this.addTaskCallBack);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,23 +44,30 @@ class AddTaskBottomScreen extends StatelessWidget {
               height: 20,
             ),
             TextField(
+              controller: textController,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                 labelText: 'Text',
               ),
+              onChanged: (value) {
+                newText = value;
+              },
             ),
             SizedBox(
               height: 20,
             ),
             TextField(
+              controller: tagController,
               textAlign: TextAlign.center,
               decoration: InputDecoration(labelText: 'Tag'),
+              onChanged: (value) {
+                newTag = value;
+              },
             ),
             SizedBox(
               height: 20,
             ),
             TextButton(
-              onPressed: null,
               style: TextButton.styleFrom(
                 backgroundColor: Colors.blue,
                 elevation: 5,
@@ -60,6 +76,11 @@ class AddTaskBottomScreen extends StatelessWidget {
                 'Add',
                 style: TextStyle(color: Colors.white),
               ),
+              onPressed: () {
+                textController.clear();
+                tagController.clear();
+                addTaskCallBack(newText, newTag);
+              },
             ),
             SizedBox(
               height: 20,
