@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_list_app/models/task.dart';
 import 'package:todo_list_app/models/task_data.dart';
 
 class AddTaskBottomScreen extends StatelessWidget {
-  String newText;
-  String newTag;
-
   final textController = TextEditingController();
   final tagController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    String newText;
+    String newTag;
+
     return Container(
       color: Color(0xff274375),
       child: Container(
@@ -79,7 +78,8 @@ class AddTaskBottomScreen extends StatelessWidget {
               onPressed: () {
                 // textController.clear();
                 // tagController.clear();
-                Provider.of<TaskData>(context,listen:false).addTask(newText, newTag);
+                Provider.of<TaskData>(context, listen: false)
+                    .addTask(newText, newTag);
                 Navigator.pop(context);
               },
             ),

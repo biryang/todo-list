@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list_app/components/tag_card.dart';
 import 'package:todo_list_app/components/tasks_list.dart';
-import 'package:todo_list_app/models/task.dart';
 import 'package:todo_list_app/models/task_data.dart';
 
 import 'add_task_bottom_screen.dart';
@@ -86,8 +85,8 @@ class TodoScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white10,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
+                      // topLeft: Radius.circular(20),
+                      // topRight: Radius.circular(20),
                       ),
                 ),
                 child: TasksList(),
