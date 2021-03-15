@@ -1,16 +1,17 @@
-# todo_list_app
+# ToDo List
+> ## 사용 패키지
+* Sqlite
+* provider
 
-Todo List Flutter application.
+> ## 설명
+심플한 디자인에 Sqlite를 활용한 ToDo App
 
-## Getting Started
+- [X] 추가 : 하단 버튼을 통해 Task 추가
+- [X] 삭제 : 해당 Task 길게 누르면 삭제
 
-This project is a starting point for a Flutter application.
+> ## 화면 구성
+|            메인화면            |           추가화면            |            실행화면            |
+| :----------------------------: | :---------------------------: | :----------------------------: |
+| <img src="./readme/main.png"/> | <img src="./readme/add.png"/> | <img src="./readme/play.gif"/> |
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
