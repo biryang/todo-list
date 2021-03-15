@@ -2,51 +2,70 @@ import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
 import 'package:todo_list_app/databass/databass_helper.dart';
-import 'package:todo_list_app/models/task.dart';
 import 'package:todo_list_app/models/task_model.dart';
 
 class TaskData extends ChangeNotifier {
+  DatabaseHelper dbHelper = DatabaseHelper();
 
-  List<Task> _tasks = [
-    Task(text: 'test1', tag: 'work'),
-    Task(text: 'test2', tag: 'work'),
-    Task(text: 'test3', tag: 'work'),
-  ];
+  List<TaskModel> _tasks = [];
+  Set<String> _tags = Set();
 
-  UnmodifiableListView<Task> get tasks {
+  UnmodifiableListView<TaskModel> get tasks {
     return UnmodifiableListView(_tasks);
+  }
+  UnmodifiableListView<String> get tags {
+    return UnmodifiableListView(_tags);
   }
 
   int get taskCount {
     return _tasks.length;
   }
 
-  Future<void> addTask(String newText, String newTag) async {
-    DatabaseHelper dbHelper = DatabaseHelper();
+  void getTask() async {
+    Set<String> tag = Set();
 
-    // dbHelper.dropTable();
-    // dbHelper.addTable();
-    dbHelper.showTable();
-    dbHelper.readTable();
+    _tasks = await dbHelper.getTasks();
+
+    for (var task in _tasks) {
+      tag.add(task.tag);
+    }
+
+    _tags = tag;
+
+    notifyListeners();
+  }
+
+  Future<void> addTask(String newText, String newTag) async {
     await dbHelper.insertTask(TaskModel(
         text: newText,
         tag: newTag,
-        done: false,
+        done: 'uncheck',
         time: DateTime.now().toString()));
-    print(await dbHelper.getTasks());
 
-    _tasks.add(Task(text: newText, tag: newTag));
-    notifyListeners();
+    getTask();
   }
 
-  void removeTask(Task task) {
+  void removeTask(TaskModel task) {
     _tasks.remove(task);
-    notifyListeners();
+    dbHelper.deleteTask(task.id);
+
+    getTask();
   }
 
-  void toggleTask(Task task) {
-    task.toggleDone();
-    notifyListeners();
+  void toggleTask(TaskModel task) async {
+    String done = task.done == 'uncheck' ? 'check' : 'uncheck';
+    dbHelper.updateTask(TaskModel(
+        id: task.id,
+        text: task.text,
+        tag: task.tag,
+        done: done,
+        time: task.time));
+
+    getTask();
   }
 
+  void reset() {
+    dbHelper.dropTable();
+    dbHelper.addTable();
+  }
 }

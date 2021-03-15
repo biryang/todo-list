@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_list_app/components/task_card.dart';
+import 'package:todo_list_app/components/task/task_card.dart';
 import 'package:todo_list_app/models/task_data.dart';
 
 class TasksList extends StatelessWidget {
@@ -12,7 +12,7 @@ class TasksList extends StatelessWidget {
           itemBuilder: (context, index) {
             final task = taskData.tasks[index];
             return TaskCard(
-              isChecked: task.isDone,
+              isChecked: task.done == 'uncheck' ? false : true,
               taskText: task.text,
               taskTag: task.tag,
               checkCallBack: () {

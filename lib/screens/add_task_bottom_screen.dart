@@ -76,10 +76,12 @@ class AddTaskBottomScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                // textController.clear();
-                // tagController.clear();
-                Provider.of<TaskData>(context, listen: false)
-                    .addTask(newText, newTag);
+                if(newText != null && newTag != null) {
+                  textController.clear();
+                  tagController.clear();
+                  Provider.of<TaskData>(context, listen: false)
+                      .addTask(newText, newTag);
+                }
                 Navigator.pop(context);
               },
             ),

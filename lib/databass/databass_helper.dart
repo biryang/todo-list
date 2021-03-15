@@ -28,7 +28,7 @@ class DatabaseHelper {
               $colId INTEGER PRIMARY KEY, 
               $colText TEXT, 
               $colTag TEXT, 
-              $colDone BOOLEAN, 
+              $colDone TEXT, 
               $colTime TEXT
             )
           """,
@@ -51,7 +51,6 @@ class DatabaseHelper {
     );
   }
 
-  //Task 리스트
   Future<List<TaskModel>> getTasks() async {
     final Database db = await database;
     final List<Map<dynamic, dynamic>> maps = await db.query(tableName);
@@ -65,6 +64,13 @@ class DatabaseHelper {
         time: maps[i][colTime],
       );
     });
+  }
+
+  Future<List> getTag() async {
+    final Database db = await database;
+    List tag = await db.rawQuery("select distinct $colTag from $tableName");
+
+    return tag;
   }
 
   Future<void> updateTask(TaskModel task) async {
@@ -115,7 +121,7 @@ class DatabaseHelper {
               $colId INTEGER PRIMARY KEY AUTOINCREMENT, 
               $colText TEXT, 
               $colTag TEXT, 
-              $colDone BOOLEAN, 
+              $colDone TEXT, 
               $colTime TEXT
             )
           """);

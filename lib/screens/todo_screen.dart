@@ -1,13 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_list_app/components/tag_card.dart';
-import 'package:todo_list_app/components/tasks_list.dart';
+import 'package:todo_list_app/components/tag/tag_card.dart';
+import 'package:todo_list_app/components/tag/tag_list.dart';
+import 'package:todo_list_app/components/task/tasks_list.dart';
 import 'package:todo_list_app/models/task_data.dart';
 
 import 'add_task_bottom_screen.dart';
 
-class TodoScreen extends StatelessWidget {
+class TodoScreen extends StatefulWidget {
+  @override
+  _TodoScreenState createState() => _TodoScreenState();
+}
+
+class _TodoScreenState extends State<TodoScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<TaskData>(context, listen: false).getTask();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -72,7 +84,7 @@ class TodoScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.white70, fontSize: 12),
               ),
             ),
-            TagCard(tag: 'tag'),
+            Container(height: 60, child: TagList()),
             Padding(
               padding: EdgeInsets.all(10),
               child: Text(
@@ -84,10 +96,7 @@ class TodoScreen extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white10,
-                  borderRadius: BorderRadius.only(
-                      // topLeft: Radius.circular(20),
-                      // topRight: Radius.circular(20),
-                      ),
+                  borderRadius: BorderRadius.only(),
                 ),
                 child: TasksList(),
               ),
